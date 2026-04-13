@@ -1,0 +1,19 @@
+[Unit]
+Description=Wayland Float Lyrics — 桌面浮动歌词
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+# 若用 cargo install --path . 安装，二进制在 ~/.cargo/bin
+ExecStart=%h/.cargo/bin/wayland-float-lyrics run
+# 也可指向仓库内的 release 构建：
+# ExecStart=%h/code/wayland-float-lyrics/target/release/wayland-float-lyrics run
+
+Restart=on-failure
+RestartSec=3
+
+# 把环境变量从用户会话传进来（DBus / Wayland / X11 都需要）
+PassEnvironment=DISPLAY WAYLAND_DISPLAY XDG_RUNTIME_DIR DBUS_SESSION_BUS_ADDRESS XDG_SESSION_TYPE XDG_CURRENT_DESKTOP
+
+[Install]
+WantedBy=graphical-session.target

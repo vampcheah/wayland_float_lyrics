@@ -1,0 +1,57 @@
+# ~/.config/wayland-float-lyrics/config.toml
+# 首次运行会自动生成默认值到该路径。
+
+[display]
+# 显示器编号（1-based，从 GDK 枚举顺序）。0 = 跟随鼠标指针所在屏。
+monitor = 0
+# 距屏幕底部像素
+margin_bottom = 120
+font_size_current = 26
+font_size_next = 18
+# 字重（100~900）。常见：300 Light / 400 Regular / 500 Medium / 600 SemiBold / 700 Bold。
+font_weight_current = 500
+font_weight_next = 400
+# 0.0 - 1.0
+background_opacity = 0.6
+text_color = "#FFFFFF"
+secondary_text_color = "rgba(255,255,255,0.55)"
+border_radius = 14
+# 没有歌词时是否保持窗口可见
+show_without_lyrics = false
+# 文本最大宽度（px），过宽自动换行
+max_width = 1200
+# 字体描边（border）颜色与宽度（px）。宽度 0 = 不描边。
+text_border_color = "#000000"
+text_border_width = 2
+# 当前行歌词渐变色（起/止，#RRGGBB）。任一为空则不启用渐变（退回 text_color）。
+gradient_from = "#FFD27A"
+gradient_to = "#FF6FAE"
+
+[behavior]
+# 轮询 MPRIS / 刷新歌词行的间隔（ms）
+poll_interval_ms = 100
+# 全局歌词偏移，正值提前、负值延后（ms）
+lyrics_offset_ms = 0
+# 歌曲切换去抖（ms），避免浏览器短时间内多次切换抖动
+debounce_ms = 300
+
+[sources]
+# 按顺序尝试：第一个有结果即返回
+# 可选： "lrclib" | "netease" | "qq"
+enabled = ["lrclib", "netease", "qq"]
+
+[filter]
+# 只监听 bus 名包含这些子串的播放器（大小写不敏感）。空 = 全部。
+# 常见： "chromium" | "chrome" | "firefox" | "spotify" | "mpv" | "vlc"
+# 例： players = ["chromium"] 表示只监听 Chromium 家族浏览器
+players = []
+
+# 明确排除的 bus 名子串（黑名单，先于 players 生效）。
+# 例： exclude_players = ["firefox"] 排除 Firefox
+exclude_players = []
+
+# 只监听 xesam:url 包含这些子串的曲目（大小写不敏感）。空 = 不限。
+# 例： urls = ["youtube.com"] → 仅 YouTube（其他网页/App 都被忽略）
+# 注意：非空时，没有 xesam:url 的播放器（如 Spotify 桌面端）也会被跳过。
+# 若想混合"原生 App + 指定网站"，请改用 players 白名单并留空 urls。
+urls = []
